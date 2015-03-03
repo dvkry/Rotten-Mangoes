@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
   end
 
   def new
-    @movies = Movie.new
+    @movie = Movie.new
   end
 
   def edit
