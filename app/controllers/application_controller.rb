@@ -5,22 +5,24 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def restrict_access
-    if !current_user
-      flash[:alert] = "You must log in."
-      redirect_to new_session_path
-    end
+  def restrict_access        
+    redirect_to new_session_path, alert: "You must log in." if !current_user
+  end
+
+  def restrict_admin_access
+    redirect_to movies_path, alert: "You are not authorized" unless current_user.admin?
   end
 
   def admin?
-    if current_user.admin == false
-      flash[:alert] = "You are not authorized"
-      redirect_to movies_path
-    end
+    current_user.admin if current_user
   end
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def load_movie
+    @movie = Movie.find(params[:id])
   end
 
   helper_method :current_user
