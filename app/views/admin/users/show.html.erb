@@ -1,6 +1,9 @@
+
+
 <h1>User Profile</h1>
 
 <p><h3>First name:</h3> <%= @user.firstname %>
 <h3>Last name:</h3> <%= @user.lastname %>
 <h3>E-mail:</h3> <%= @user.email %>
 <h3>Password:</h3> <%= @user.password_digest %></p>
+<%= link_to 'Edit User', edit_admin_user_path(@user) %>
