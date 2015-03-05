@@ -39,6 +39,15 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    if @user.destroy
+      redirect_to admin_users_path, notice: "User deleted"
+    else
+      render :show
+    end
+  end
+
   protected
   def admin_user_params
     params.require(:user).permit(:email, :firstname, :lastname, :admin, :password, :password_confirmation)
