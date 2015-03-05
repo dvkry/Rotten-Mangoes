@@ -1,6 +1,4 @@
 
-
-
 <table style="width:75%">
   <caption>All Users</caption>
     <tr>
@@ -20,5 +18,6 @@
       <% end %>
     </tr>
 </table>
+<%= link_to 'Create New User', new_admin_user_path %>
 
 <%= paginate @users %>
