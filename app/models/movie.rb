@@ -10,6 +10,9 @@ class Movie < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
+  scope :title_or_director, -> (title_or_director) { where("title like ? OR director like ?", title_or_director, title_or_director) }
+  scope :runtime, -> (min, max) { where("runtime_in_minutes BETWEEN ? AND ?", min, max )}
+
   def review_average
     reviews.size > 0 ? reviews.sum(:rating_out_of_ten)/reviews.size : 0
   end

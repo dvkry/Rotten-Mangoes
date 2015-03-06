@@ -2,13 +2,10 @@
 <%= link_to "Submit a movie!", new_movie_path %>
 <hr>
 <%= form_tag movies_path, method: "get" do %>
-    <%= label_tag "Title" %><br>
-    <%= text_field_tag "title" %>
-
-    <%= label_tag "Director" %>
-    <%= text_field_tag "director" %>
+    <%= label_tag "Title or director" %><br>
+    <%= text_field_tag "title_or_director" %>
     
-    <%= select_tag(:runtime_in_minutes, options_for_select([['Any', 'any'], ['Under 90', 'under 90'], ['Between 90 and 120', '90 - 120'], ['Over 120', 'over 120']])) %>
+    <%= select_tag(:runtime_in_minutes, options_for_select([['Any', '0_960'], ['Under 90', '0_90'], ['Between 90 and 120', '90_120'], ['Over 120', '120_960']])) %>
 
     <%= submit_tag "search" %>
 <% end %>

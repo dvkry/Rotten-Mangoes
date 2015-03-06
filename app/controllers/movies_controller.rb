@@ -2,22 +2,18 @@ class MoviesController < ApplicationController
 
 
   def index
-    if params[:title] || params[:director] || params[:runtime_in_minutes]
-      runtime_min = 0
-      runtime_max = 960
-      case params[:runtime_in_minutes]
-      when 'any'
-        runtime_min = 0
-        runtime_max = 960
-      when 'under 90'
-        runtime_max = 90
-      when '90 - 120'
-        runtime_min = 90
-        runtime_max = 120
-      when 'over 120'
-        runtime_min = 120
+    if params[:runtime_in_minutes]
+
+      runtime_min = params[:runtime_in_minutes].split('_').first
+      runtime_max = params[:runtime_in_minutes].split('_').last
+
+      if params[:title_or_director] != ''
+      # @movies = Movie.where("title like ? and director like ? and runtime_in_minutes between ? and ?", "%#{params[:title]}%", "%#{params[:director]}%", runtime_min, runtime_max)
+        @movies = Movie.title_or_director(params[:title_or_director]).runtime(runtime_min, runtime_max)
+      else
+        @movies = Movie.runtime(runtime_min, runtime_max)
       end
-      @movies = Movie.where("title like ? and director like ? and runtime_in_minutes between ? and ?", "%#{params[:title]}%", "%#{params[:director]}%", runtime_min, runtime_max)
+
     else
       @movies = Movie.all
     end
