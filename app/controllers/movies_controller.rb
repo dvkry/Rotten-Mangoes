@@ -1,6 +1,5 @@
 class MoviesController < ApplicationController
 
-  before_filter :load_movie, only: [:show, :edit, :update, :destroy]
 
   def index
     if params[:title] || params[:director] || params[:runtime_in_minutes]
@@ -25,6 +24,7 @@ class MoviesController < ApplicationController
   end
 
   def show
+    @movie = Movie.find(params[:id])
   end
 
   def new
@@ -32,6 +32,7 @@ class MoviesController < ApplicationController
   end
 
   def edit
+    @movie = Movie.find(params[:id])
   end
 
   def create
@@ -45,6 +46,7 @@ class MoviesController < ApplicationController
   end
 
   def update
+    @movie = Movie.find(params[:id])
     if @movie.update_attributes(movie_params)
       redirect_to movie_path(@movie)
     else
@@ -53,6 +55,7 @@ class MoviesController < ApplicationController
   end
 
   def destroy
+    @movie = Movie.find(params[:id])
     @movie.destroy
     redirect_to movies_path
   end
