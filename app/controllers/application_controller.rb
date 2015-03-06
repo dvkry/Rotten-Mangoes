@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_movie
-    @movie = Movie.find(params[:id])
+    @movie = Movie.find(params[:movie_id])
   end
 
   helper_method :current_user
