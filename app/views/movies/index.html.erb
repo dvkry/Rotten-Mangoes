@@ -2,21 +2,12 @@
 <%= link_to "Submit a movie!", new_movie_path %>
 <hr>
 <%= form_tag movies_path, method: "get" do %>
-    <%= label_tag "Title or director" %><br>
-    <%= text_field_tag "title_or_director" %>
-    
-    <%= select_tag(:runtime_in_minutes, options_for_select([['Any', '0_960'], ['Under 90', '0_90'], ['Between 90 and 120', '90_120'], ['Over 120', '120_960']])) %>
-
-    <%= submit_tag "search" %>
+  <%= label_tag "Title or director" %><br>
+  <%= text_field_tag "title_or_director" %>
+  <%= select_tag(:runtime_in_minutes, options_for_select([['Any', '0_960'], ['Under 90', '0_90'], ['Between 90 and 120', '90_120'], ['Over 120', '120_960']])) %>
+  <%= submit_tag "search" %>
 <% end %>
 <hr>
 <% @movies.each do |movie| %>
-  <%= image_tag movie.image_url(:thumb).to_s %>
-  <%= link_to image_tag(movie.poster_image_url), movie_path(movie) %>
-  <h2><%= link_to movie.title, movie_path(movie) %></h2>
-  <h3><%= formatted_date(movie.release_date) %></h3>
-  <h4>Dir. <%= movie.director %> | <%= movie.runtime_in_minutes %> minutes </h4>
-  <p><%= movie.description %></p>
-  <p><%= movie.review_average %>/10</p>
-  <hr>
+  <%= render 'movie', movie: movie %>
 <% end %>
